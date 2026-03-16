@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>돌망이네 서점 - 메인</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="top-nav">
+            <div class="container tab-flex">
+                <div class="tab kyobo"><span>돌망이네</span></div>
+                <div class="tab ebook"><span>eBook</span></div>
+                <div class="tab sam"><span>sam</span></div>
+                <div class="tab hot"><span>핫트랙스</span></div>
+                
+                <ul class="utility-menu">
+                    <li>회원가입</li>
+                    <li>로그인</li>
+                    <li>회원혜택 <span style="font-size: 8px;">▼</span></li>
+                    <li>주문배송</li>
+                    <li>매장안내</li>
+                    <li>고객센터</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container main-header">
+            <div class="logo-area" onclick="location.href='/'">
+                <span style="font-weight:900; font-size:24px; color:#4b52a3;">MY BOOKSTORE</span>
+            </div>
+            <form action="/" method="get" class="search-box">
+                <input type="text" name="q" placeholder="검색어를 입력하세요" value="{{ query }}">
+                <button type="submit" style="background:none; border:none; cursor:pointer;">🔍</button>
+            </form>
+        </div>
+    </header>
+
+    <section>
+        <div class="container slider-container">
+            <div class="main-slider">
+                <div id="main-slider-wrapper"></div>
+            </div>
+            <div class="sub-slider" id="sub-slider-content"></div>
+        </div>
+    </section>
+
+    <section class="nav-section">
+        <div class="container">
+            <div class="icon-nav-wrapper">
+                <ul class="icon-menu-list">
+                    <li class="icon-item"><div class="icon-box">🎉</div><div class="icon-text">이벤트</div></li>
+                    <li class="icon-item"><div class="icon-box">％</div><div class="icon-text">특가</div></li>
+                    <li class="icon-item"><div class="icon-box">📱</div><div class="icon-text">APP혜택</div></li>
+                    <li class="icon-item"><div class="icon-box">📘</div><div class="icon-text">베스트</div></li>
+                    <li class="icon-item"><div class="icon-box">✨</div><div class="icon-text">신상품</div></li>
+                    <li class="icon-item"><div class="icon-box">🎁</div><div class="icon-text">기프트</div></li>
+                    <li class="icon-item"><div class="icon-box">📦</div><div class="icon-text">오늘의굿즈</div></li>
+                    <li class="icon-item"><div class="icon-box">👍</div><div class="icon-text">추천</div></li>
+                </ul>
+
+                <div class="mission-banner">
+                    <div style="font-size:12px; font-weight:bold; color:#333; line-height:1.4;">
+                        미션 수행하고<br>선착순 교환권 받기
+                    </div>
+                    <div style="font-size: 30px; margin-left: 15px;">📅</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <section>
+            <h2 class="section-title">🏆 실시간 베스트셀러</h2>
+            <div class="book-grid">
+                {% for b in books[0:5] %}
+                <div class="book-card" onclick='goToDetail({{ b|tojson }})'>
+                    <img src="{{ b.thumbnail if b.thumbnail else 'https://via.placeholder.com/140x200' }}">
+                    <h3 class="book-title">{{ b.title }}</h3>
+                    <p class="price">{{ "{:,}".format(b.sale_price) }}원</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">✨ 새로 나온 신간</h2>
+            <div class="book-grid">
+                {% for b in books[5:10] %}
+                <div class="book-card" onclick='goToDetail({{ b|tojson }})'>
+                    <img src="{{ b.thumbnail if b.thumbnail else 'https://via.placeholder.com/140x200' }}">
+                    <h3 class="book-title">{{ b.title }}</h3>
+                    <p class="price">{{ "{:,}".format(b.sale_price) }}원</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">🔥 지금 가장 핫한 책</h2>
+            <div class="book-grid">
+                {% for b in books[10:15] %}
+                <div class="book-card" onclick='goToDetail({{ b|tojson }})'>
+                    <img src="{{ b.thumbnail if b.thumbnail else 'https://via.placeholder.com/140x200' }}">
+                    <h3 class="book-title">{{ b.title }}</h3>
+                    <p class="price">{{ "{:,}".format(b.sale_price) }}원</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section style="border-bottom: none;">
+            <h2 class="section-title">💎 놓치면 아쉬운 스테디셀러</h2>
+            <div class="book-grid">
+                {% for b in books[15:20] %}
+                <div class="book-card" onclick='goToDetail({{ b|tojson }})'>
+                    <img src="{{ b.thumbnail if b.thumbnail else 'https://via.placeholder.com/140x200' }}">
+                    <h3 class="book-title">{{ b.title }}</h3>
+                    <p class="price">{{ "{:,}".format(b.sale_price) }}원</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+
+    <section class="wish-section">
+        <div class="container">
+            <div class="wishlist-container">
+                <h3>❤️ 내가 찜한 책들</h3>
+                <div id="wishlist" class="wish-grid"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-left">
+                <ul class="footer-links">
+                    <li>회사소개</li><li>이용약관</li><li class="bold">개인정보처리방침</li><li>청소년보호정책</li><li>대량구매서비스</li><li>채용정보</li>
+                </ul>
+                <div class="info-text">
+                    <p>(주)돌망이네비밀책방 | 서울특별시 종로구 종로1 | 대표이사 : 안병현 | 사업자등록번호 : 102-81-11670</p>
+                    <p>대표전화 : 1544-1900 | FAX : 0502-987-5711 | 통신판매업신고번호 : 제 653호</p>
+                </div>
+                <p class="copyright">© KYOBO BOOK CENTRE</p>
+            </div>
+            <div class="footer-right">
+                <div class="service-box">
+                    <p><strong>토스페이먼츠 구매안전서비스</strong></p>
+                    <p style="color: #999; font-size: 11px;">고객님은 안전거래를 위해 현금 결제시 구매안전서비스를 이용하실 수 있습니다.</p>
+                </div>
+                <div class="isms-info">🛡️ 정보보호관리체계 ISMS 인증획득</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 상세 페이지 이동 (데이터 인코딩 포함)
+        function goToDetail(book) {
+            const params = new URLSearchParams({
+                title: book.title,
+                author: book.authors[0] || '저자 미상',
+                thumb: book.thumbnail,
+                publisher: book.publisher,
+                price: book.sale_price,
+                contents: book.contents
+            });
+            location.href = `/detail?${params.toString()}`;
+        }
+
+        // 슬라이더 초기화
+        async function initBanners() {
+            try {
+                const res = await fetch('/static/data/banners.json');
+                const data = await res.json();
+                
+                // 메인 슬라이더
+                const mainW = document.getElementById('main-slider-wrapper');
+                mainW.innerHTML = data.mainBanners.map(b => `<div class="slide"><img src="${b.image}"></div>`).join('');
+                let mIdx = 0;
+                setInterval(() => {
+                    mIdx = (mIdx + 1) % data.mainBanners.length;
+                    mainW.style.transform = `translateX(-${mIdx * 100}%)`;
+                }, 5000);
+
+                // 서브 슬라이더
+                const subC = document.getElementById('sub-slider-content');
+                subC.innerHTML = `<div id="sub-wrapper" style="display:flex; transition:0.5s; width:100%; height:100%;">
+                    ${data.subBanners.map(s => `
+                        <div style="min-width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px;">
+                            <img src="${s.image}" style="width:110px; margin-bottom:10px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.1);">
+                            <div style="color:#2d81ff; font-weight:bold; font-size:12px;">${s.label}</div>
+                            <div style="font-weight:bold; font-size:14px; text-align:center;">${s.title}</div>
+                        </div>
+                    `).join('')}</div>`;
+                let sIdx = 0;
+                setInterval(() => {
+                    const subW = document.getElementById('sub-wrapper');
+                    sIdx = (sIdx + 1) % data.subBanners.length;
+                    subW.style.transform = `translateX(-${sIdx * 100}%)`;
+                }, 3500);
+            } catch(e) { console.log("배너 데이터 로드 실패"); }
+        }
+
+        // 찜 목록 관련
+        function renderWishlist() {
+            const wishC = document.getElementById('wishlist');
+            const list = JSON.parse(localStorage.getItem('myWishlist') || '[]');
+            wishC.innerHTML = list.length > 0 ? list.map((b, i) => `
+                <div class="wish-item">
+                    <div class="remove-wish" onclick="removeWish(${i})">×</div>
+                    <img src="${b.img}">
+                    <p>${b.title.substring(0,10)}..</p>
+                </div>
+            `).join('') : '<p style="color:#ccc; padding:20px;">찜한 책이 없습니다.</p>';
+        }
+
+        function removeWish(i) {
+            let list = JSON.parse(localStorage.getItem('myWishlist') || '[]');
+            list.splice(i, 1);
+            localStorage.setItem('myWishlist', JSON.stringify(list));
+            renderWishlist();
+        }
+
+        window.onload = () => { initBanners(); renderWishlist(); };
+    </script>
+</body>
+</html>

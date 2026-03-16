@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer">
+    <title>{{ book.title }} - 돌망이네 비밀 책방</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; margin: 0; color: #333; }
+        .container { width: 1200px; margin: 0 auto; }
+        header { border-bottom: 1px solid #eee; }
+        .top-nav { background: #f8f8f8; font-size: 12px; border-bottom: 1px solid #eee; }
+        .tab-flex { display: flex; justify-content: space-between; align-items: center; }
+        .utility-menu { list-style: none; display: flex; gap: 15px; margin: 0; padding: 10px 0; }
+        .utility-menu li { cursor: pointer; color: #666; }
+        .main-header { padding: 30px 0; display: flex; align-items: center; }
+        .logo-area { cursor: pointer; }
+
+        .detail-top { display: flex; gap: 60px; padding: 60px 0; border-bottom: 1px solid #eee; }
+        .detail-img-area { flex: 0 0 400px; position: sticky; top: 50px; }
+        .detail-img-area img { width: 100%; border-radius: 10px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        
+        .detail-info-area { flex: 1; }
+        .author-link { color: #5db334; font-weight: bold; text-decoration: none; font-size: 15px; }
+        .book-main-title { font-size: 36px; font-weight: 900; margin: 15px 0 25px 0; line-height: 1.2; }
+        
+        .rating-summary { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; font-size: 14px; color: #666; }
+        .stars { color: #ffb400; font-size: 18px; }
+
+        .price-section { background: #f9f9fb; border: 1px solid #f2f2f2; padding: 35px; border-radius: 15px; margin-bottom: 30px; }
+        .discount-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 15px; }
+        .percent { color: #eb3e3e; font-size: 28px; font-weight: 800; }
+        .current-price { font-size: 32px; font-weight: 800; }
+        
+        .benefit-tag { display: inline-block; padding: 4px 10px; background: #eef7eb; color: #5db334; border-radius: 4px; font-size: 12px; font-weight: bold; margin-bottom: 15px; }
+
+        .delivery-info { border-top: 1px solid #eee; padding-top: 25px; font-size: 15px; color: #555; line-height: 1.6; }
+        .delivery-info b { color: #2d81ff; }
+
+        .btn-group-fixed { display: flex; gap: 12px; margin-top: 40px; }
+        .btn-l { flex: 1; padding: 22px; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; border: none; transition: 0.2s; }
+        .btn-cart-l { background: #fff; border: 1px solid #ddd; color: #555; }
+        .btn-cart-l:hover { background: #f5f5f5; }
+        .btn-buy-l { background: #5db334; color: #fff; }
+        .btn-buy-l:hover { background: #4a912a; }
+
+        .detail-tabs { margin-top: 60px; }
+        .tab-menu { display: flex; border-bottom: 2px solid #333; list-style: none; padding: 0; }
+        .tab-menu li { padding: 18px 40px; cursor: pointer; font-weight: bold; color: #999; font-size: 17px; }
+        .tab-menu li.active { color: #333; border-bottom: 4px solid #333; margin-bottom: -2px; }
+        
+        .tab-content { padding: 50px 0; line-height: 1.9; color: #444; font-size: 16px; }
+        
+        .info-table { width: 100%; border-top: 1px solid #eee; margin: 30px 0; border-collapse: collapse; }
+        .info-table th { width: 150px; background: #fcfcfc; text-align: left; padding: 15px; border-bottom: 1px solid #eee; color: #777; font-weight: 500; }
+        .info-table td { padding: 15px; border-bottom: 1px solid #eee; }
+
+        footer { margin-top: 120px; padding: 70px 0; background: #222; color: #999; line-height: 1.8; }
+        .footer-content { display: flex; justify-content: space-between; align-items: flex-start; }
+        .footer-logo { font-weight: 900; color: #fff; font-size: 20px; margin-bottom: 20px; }
+        .footer-links a { color: #999; text-decoration: none; margin-right: 20px; font-size: 14px; }
+        .footer-info { font-size: 13px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-nav">
+            <div class="container tab-flex">
+                <div style="display:flex; gap:20px; font-weight:bold;">
+                    <span>교보문고</span><span style="color:#bbb;">eBook</span><span style="color:#bbb;">sam</span>
+                </div>
+                <ul class="utility-menu">
+                    <li>회원가입</li><li>로그인</li><li>주문배송</li><li>고객센터</li>
+                </ul>
+            </div>
+        </div>
+        <div class="container main-header">
+            <div class="logo-area" onclick="location.href='/'">
+                <span style="font-weight:900; font-size:26px; color:#4b52a3;">📖 돌망이네 비밀 책방</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="detail-top">
+            <div class="detail-img-area">
+                <img src="{{ url_for('static', filename='img/book_detail.jpg') }}" alt="Book Cover">
+                <button style="width:100%; margin-top:15px; padding:15px; border:1px solid #ddd; background:#fff; border-radius:8px; cursor:pointer; font-weight:bold;">📖 미리보기 열기</button>
+            </div>
+            
+            <div class="detail-info-area">
+                <div class="benefit-tag">돌망이네 단독 혜택</div>
+                <a href="#" class="author-link">{{ book.author }} 저</a>
+                <h1 class="book-main-title">{{ book.title }}</h1>
+                
+                <div class="rating-summary">
+                    <span class="stars">★★★★★</span>
+                    <span style="font-weight:bold; color:#333;">9.8</span>
+                    <span style="margin:0 10px; color:#eee;">|</span>
+                    <span>회원리뷰(1,240건)</span>
+                </div>
+
+                <div class="price-section">
+                    <div class="discount-row">
+                        <span class="percent">10%</span>
+                        <span class="current-price">{{ book.price }}원</span>
+                        <span style="text-decoration: line-through; color:#bbb; font-size:18px;">{{ (book.price|int * 1.1)|int }}원</span>
+                    </div>
+                    <p style="font-size:14px; color:#666;">적립금 <b style="color:#5db334;">520원 (5% 적립)</b></p>
+                </div>
+
+                <div class="delivery-info">
+                    <p>배송안내: <b>내일(화) 아침 7시 전</b> 도착 보장</p>
+                    <p style="margin-top:5px; font-size:13px; color:#999;">서울/경기 기준 (밤 12시 전 주문 시 무료배송)</p>
+                </div>
+
+                <div class="btn-group-fixed">
+                    <button class="btn-l btn-cart-l" onclick="addWish()">❤️ 찜하기</button>
+                    <button class="btn-l btn-buy-l">지금 바로구매</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-tabs">
+            <ul class="tab-menu">
+                <li class="active">도서정보</li>
+                <li>리뷰(1,240)</li>
+                <li>교환/반품</li>
+            </ul>
+            
+            <div class="tab-content">
+                <h3 style="font-size:22px; margin-bottom:25px;">📖 책 소개</h3>
+                <div style="margin-bottom:50px;">
+                    {{ book.contents }}
+                </div>
+
+                <h3 style="font-size:22px; margin-bottom:25px;">📊 기본 정보</h3>
+                <table class="info-table">
+                    <tr>
+                        <th>발행일</th>
+                        <td>2026년 03월 02일</td>
+                        <th>쪽수</th>
+                        <td>342쪽</td>
+                    </tr>
+                    <tr>
+                        <th>ISBN13</th>
+                        <td>9791100000000</td>
+                        <th>무게/크기</th>
+                        <td>512g | 145*210*20mm</td>
+                    </tr>
+                </table>
+
+                <div style="margin-top:60px; padding:40px; background:#f4f7f2; border-radius:20px; border-left:8px solid #5db334;">
+                    <h4 style="margin-top:0; color:#5db334; font-size:18px;">🪨 돌망이의 추천사</h4>
+                    <p style="font-size:17px; font-weight:500;">"이 책을 읽고 나면 당신의 마음도 저처럼 단단하고 반짝이는 원석이 될 거예요! 제가 직접 고른 이번 달 최고의 도서입니다."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">MY BOOKSTORE</div>
+                    <div class="footer-links">
+                        <a href="#">회사소개</a>
+                        <a href="#">이용약관</a>
+                        <a href="#"><b>개인정보처리방침</b></a>
+                        <a href="#">청소년보호정책</a>
+                        <a href="#">대량구입안내</a>
+                    </div>
+                    <div class="footer-info">
+                        (주)돌망이네비밀책방 | 대표이사 : 돌망이 | 서울특별시 강남구 테헤란로 123<br>
+                        사업자등록번호 : 123-45-67890 | 통신판매업신고 : 제2026-서울강남-0000호<br>
+                        고객센터 : 1588-0000 (평일 09:00~18:00) | Email : support@dolmang.com
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 24px; font-weight: bold; color: #fff;">1588-0000</div>
+                    <p style="font-size: 13px;">상담가능시간: 평일 09:00 ~ 18:00</p>
+                </div>
+            </div>
+            <p style="margin-top:50px; font-size:12px; color:#666;">© DOLMANG BOOK CENTRE. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function addWish() {
+            let list = JSON.parse(localStorage.getItem('myWishlist') || '[]');
+            const bookData = { 
+                title: "{{ book.title }}", 
+                img: "{{ url_for('static', filename='img/book_detail.jpg') }}",
+                price: "{{ book.price }}",
+                author: "{{ book.author }}"
+            };
+            const isExist = list.find(item => item.title === bookData.title);
+            if (!isExist) {
+                list.push(bookData);
+                localStorage.setItem('myWishlist', JSON.stringify(list));
+                alert('❤️ 찜한 상품에 추가되었습니다!');
+            } else {
+                alert('이미 찜 목록에 있는 상품입니다.');
+            }
+        }
+    </script>
+</body>
+</html>

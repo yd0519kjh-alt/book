@@ -1,0 +1,14 @@
+{
+  "mainBanners": [
+    { "image": "/static/img/banner1.jpg"},
+    { "image": "/static/img/banner2.jpg"},
+    { "image": "/static/img/banner3.jpg"},
+    { "image": "/static/img/banner4.jpg"},
+    { "image": "/static/img/banner5.jpg"}
+  ],
+  "subBanners": [
+    { "image": "/static/img/side1.jpg", "label": "바로펀딩", "title": "운동 없이 체지방만 빠지는 식사법" },
+    { "image": "/static/img/side2.jpg", "label": "강력추천", "title": "하루 10분, 마음을 다스리는 습관" },
+    { "image": "/static/img/side3.jpg", "label": "신간안내", "title": "미스터리 소설의 새로운 지평" }
+  ]
+}

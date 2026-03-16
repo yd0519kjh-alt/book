@@ -1,0 +1,170 @@
+/* [1] 전체 기본 초기화 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Apple SD Gothic Neo', sans-serif; background: #fff; color: #333; overflow-x: hidden; line-height: 1.6; }
+.container { max-width: 1200px; margin: 0 auto; width: 100%; }
+
+/* [2] 상단 헤더 & 탭 - 유틸리티 메뉴 통합 */
+header { background: white; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
+.top-nav { background-color: #f8f8f8; border-bottom: 1px solid #eee; height: 35px; }
+.tab-flex { display: flex; align-items: flex-end; height: 100%; padding: 0 20px; }
+
+/* 왼쪽 사이드 탭 */
+.tab { padding: 0 20px; height: 28px; line-height: 28px; color: white; font-weight: bold; font-size: 11px; border-radius: 10px 10px 0 0; margin-right: 2px; cursor: pointer; transform: skewX(-15deg); }
+.tab span { transform: skewX(15deg); display: inline-block; }
+.tab.kyobo { background: #4b52a3; margin-left: 20px; }
+.tab.ebook { background: #2d81ff; }
+.tab.sam { background: #00a0b1; }
+.tab.hot { background: #eb3e3e; }
+
+/* ⭐ 오른쪽 유틸리티 메뉴 (이미지 반영) */
+.utility-menu {
+    margin-left: auto; /* 오른쪽 끝으로 밀기 */
+    display: flex;
+    list-style: none;
+    align-items: center;
+    height: 28px;
+}
+.utility-menu li {
+    font-size: 11px;
+    color: #777;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+/* 메뉴 사이의 구분선 | */
+.utility-menu li:not(:last-child)::after {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 10px;
+    background-color: #ddd;
+    margin: 0 12px;
+}
+.utility-menu li:hover { color: #333; text-decoration: underline; }
+
+/* 메인 헤더 영역 */
+.main-header { display: flex; align-items: center; justify-content: space-between; padding: 15px 20px; }
+.logo-area { display: flex; align-items: center; cursor: pointer; text-decoration: none; }
+.search-box { flex: 0 1 500px; border: 2px solid #5db334; border-radius: 30px; display: flex; padding: 5px 20px; background: white; }
+.search-box input { border: none; outline: none; flex: 1; padding: 8px; font-size: 14px; }
+
+/* [3] 슬라이더 영역 */
+section { padding: 35px 0; border-bottom: 1px solid #f5f5f5; }
+.slider-container { display: flex; gap: 20px; height: 340px; }
+.main-slider { flex: 7; position: relative; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+#main-slider-wrapper { display: flex; transition: 0.5s ease; height: 100%; }
+.slide { min-width: 100%; height: 100%; }
+.slide img { width: 100%; height: 100%; object-fit: cover; }
+.sub-slider { flex: 3; background: #fff; border-radius: 15px; border: 1px solid #eee; overflow: hidden; position: relative; }
+
+/* [4] 아이콘 내비바 - 호버 효과 강화 */
+.icon-nav-wrapper { display: flex; align-items: center; justify-content: center; gap: 40px; }
+.icon-menu-list { display: flex; gap: 25px; list-style: none; }
+.icon-item { text-align: center; cursor: pointer; transition: 0.3s; }
+.icon-box { 
+    width: 50px; height: 50px; background: white; border-radius: 15px; 
+    display: flex; align-items: center; justify-content: center; 
+    font-size: 24px; margin-bottom: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.05); 
+    border: 1px solid #eee; transition: 0.3s;
+}
+.icon-text { font-size: 12px; color: #666; text-align: center; font-weight: 500; transition: 0.3s; }
+
+/* 아이콘 호버 시 통통 튀는 효과 */
+.icon-item:hover .icon-box { transform: translateY(-5px); border-color: #5db334; color: #5db334; }
+.icon-item:hover .icon-text { color: #5db334; font-weight: bold; }
+
+.mission-banner { flex: 0 0 260px; height: 75px; background: #f9f9f9; border-radius: 15px; display: flex; align-items: center; padding: 0 20px; border: 1px solid #eee; }
+
+/* [5] 도서 그리드 */
+.section-title { font-size: 22px; font-weight: 800; color: #111; margin-bottom: 25px; border-left: 5px solid #5db334; padding-left: 15px; }
+.book-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+.book-card { background: white; padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; border: 1px solid #f2f2f2; transition: 0.3s; }
+.book-card:hover { transform: translateY(-8px); border-color: #5db334; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+.book-card img { width: 100%; max-width: 130px; border-radius: 4px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+.book-title { font-size: 14px; font-weight: 700; height: 40px; overflow: hidden; text-align: left; margin-bottom: 8px; }
+.price { color: #5db334; font-weight: 800; font-size: 17px; text-align: left; }
+
+/* [6] 위시리스트 & 삭제 버튼 */
+.wish-section { background: #f9f9f9; padding-bottom: 60px; }
+.wishlist-container { background: white; border-radius: 20px; padding: 25px; border: 1px solid #eee; }
+.wish-grid { display: flex; gap: 25px; overflow-x: auto; padding: 10px 0; }
+.wish-item { min-width: 100px; text-align: center; position: relative; }
+.wish-item img { width: 85px; border-radius: 4px; border: 1px solid #eee; margin-bottom: 5px; }
+.remove-wish { position: absolute; top: -5px; right: 5px; background: #eb3e3e; color: white; width: 20px; height: 20px; border-radius: 50%; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; border: 2px solid white; font-weight: bold; }
+
+/* [7] 상세 페이지 전용 레이아웃 */
+.detail-container { max-width: 1000px; margin: 60px auto; display: flex; gap: 60px; }
+.detail-img img { width: 350px; border-radius: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+.detail-info { flex: 1; }
+.detail-price { background: #f8f9fa; padding: 25px; border-radius: 15px; font-size: 28px; font-weight: 800; margin: 20px 0; color: #5db334; }
+.detail-contents { border-top: 1px solid #eee; padding-top: 30px; margin-top: 30px; white-space: pre-wrap; color: #666; }
+
+/* [8] 하단 푸터 스타일 */
+footer {
+    background-color: #fcfcfc;
+    border-top: 1px solid #eee;
+    padding: 50px 0;
+    color: #777;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between; /* 왼쪽 정보와 오른쪽 인증정보 분리 */
+    align-items: flex-start;
+}
+
+/* 왼쪽 섹션: 회사 정보 */
+.footer-left { flex: 1; }
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+.footer-links li { cursor: pointer; }
+.footer-links li.bold { color: #333; font-weight: 800; } /* 개인정보처리방침 강조 */
+.footer-links li:not(:last-child)::after {
+    content: "|";
+    color: #ddd;
+    margin-left: 15px;
+}
+
+.info-text { margin-bottom: 20px; }
+.info-text span:not(:last-child)::after {
+    content: "|";
+    color: #eee;
+    margin: 0 10px;
+}
+
+.copyright { color: #999; margin-top: 10px; text-transform: uppercase; }
+
+/* 오른쪽 섹션: 인증 및 서비스 */
+.footer-right {
+    flex: 0 0 400px;
+    text-align: left;
+    border-left: 1px solid #eee;
+    padding-left: 40px;
+}
+
+.service-box { margin-bottom: 20px; }
+.btn-verify {
+    display: inline-block;
+    padding: 2px 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 11px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.isms-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+.isms-info img { height: 35px; opacity: 0.6; }
